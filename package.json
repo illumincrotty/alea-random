@@ -1,5 +1,13 @@
 {
 	"name": "alea-generator",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/illumincrotty/alea-random.git"
+	},
+	"homepage": "https://github.com/illumincrotty/alea-random#readme",
+	"bugs": {
+		"url": "https://github.com/illumincrotty/alea-random/issues"
+	},
 	"version": "1.0.0",
 	"description": "A performant and effective random number generator",
 	"type": "module",
