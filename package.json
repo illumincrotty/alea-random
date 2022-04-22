@@ -1,0 +1,68 @@
+{
+	"name": "alea-generator",
+	"version": "1.0.0",
+	"description": "A performant and effective random number generator",
+	"type": "module",
+	"files": [
+		"dist",
+		"src"
+	],
+	"source": "src/alea.ts",
+	"exports": {
+		"require": "./dist/alea.cjs",
+		"default": "./dist/alea.modern.js"
+	},
+	"main": "./dist/alea.cjs",
+	"module": "./dist/alea.js",
+	"unpkg": "./dist/alea.umd.js",
+	"types": "./dist/alea.d.ts",
+	"devDependencies": {
+		"@skypack/package-check": "^0.2.2",
+		"@typescript-eslint/eslint-plugin": "^5.20.0",
+		"@typescript-eslint/parser": "^5.20.0",
+		"ava": "^4.2.0",
+		"c8": "^7.11.2",
+		"eslint": "^8.13.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-ava": "^13.2.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"eslint-plugin-unicorn": "^42.0.0",
+		"microbundle": "^0.14.2",
+		"prettier": "^2.6.2",
+		"ts-node": "^10.7.0",
+		"typescript": "^4.6.3"
+	},
+	"scripts": {
+		"test": "ava",
+		"build": "microbundle",
+		"dev": "microbundle watch",
+		"ci": "c8 --reporter lcovonly pnpm test",
+		"coverage": "c8 --reporter lcov --reporter text --skip-full pnpm test"
+	},
+	"author": "Brian Crotty",
+	"license": "MIT",
+	"keywords": [
+		"random",
+		"integer",
+		"generator",
+		"alea"
+	],
+	"ava": {
+		"files": [
+			"test/*.test.ts",
+			"test/**/*.test.ts"
+		],
+		"failFast": false,
+		"extensions": {
+			"ts": "module"
+		},
+		"nodeArguments": [
+			"--loader=ts-node/esm",
+			"--experimental-specifier-resolution=node",
+			"--no-warnings=ExperimentalWarning"
+		]
+	},
+	"mangle": {
+		"regex": "^_"
+	}
+}
