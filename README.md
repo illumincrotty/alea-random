@@ -168,6 +168,6 @@ Find me [@illumincrotty](https://github.com/illumincrotty) on github or [@illumi
 
 If this tool isn't working for you, try one of these:
 
--   [ISAAC, A cryptographically secure random number generator]("https://github.com/macmcmeans/isaacCSPRNG")
+-   [ISAAC, A cryptographically secure random number generator](https://github.com/macmcmeans/isaacCSPRNG)
 -   [The new standard crypto web api for cryptographically secure random numbers](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues)
 -   [Prando](https://www.npmjs.com/package/prando)
