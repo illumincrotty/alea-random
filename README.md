@@ -5,7 +5,7 @@
 ![npm](https://img.shields.io/npm/l/alea-generator)
 ![size-badge](https://img.badgesize.io/https:/unpkg.com/alea-generator/dist/TODO?compression=brotli)
 ![Types](https://badgen.net/npm/types/alea-generator)
-[![codecov](https://codecov.io/gh/illumincrotty/alea-generator/branch/main/graph/badge.svg?token=W17SYOVM6T)](https://codecov.io/gh/illumincrotty/alea-generator)
+[![codecov](https://codecov.io/gh/illumincrotty/alea-random/branch/main/graph/badge.svg?token=W17SYOVM6T)](https://codecov.io/gh/illumincrotty/alea-random)
 
 </div>
 
