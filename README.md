@@ -11,7 +11,7 @@
 
 ---
 
-<p align="center"> Few lines describing your project. </p>
+<p align="center"> A dead simple random number generator. Seedable, repeatable, and fast</p>
 
 ## 📝 Table of Contents
 
@@ -23,14 +23,13 @@
     - [CDN](#cdn)
   - [🔧 Running the tests](#-running-the-tests)
   - [🎈 Usage](#-usage)
-  - [Example](#example)
-  - [📃 License](#-license)
+  - [📃 License and Shoutouts](#-license-and-shoutouts)
   - [✍️ Authors](#️-authors)
   - [🔨 Similar Tools](#-similar-tools)
 
 ## 🧐 About
 
-Important but basic info
+The default javascript random (Math.random()) is slow, inconsistent across browsers and platforms, and lack seedability, customizability, and state. This generator is a simple way to solve all these problems at once, and it manages that at the tiny cost of only a few hundred bytes. Not kilobytes, bytes. It's small, it's fast, and it's feature-rich. What more could you want?
 
 ## Install
 
@@ -76,7 +75,7 @@ And use it like you would any other package from UNPKG
 
 ## 🔧 Running the tests
 
-The basic set of tests are in the test script, the coverage script, and the report script. Just run those using your perferred package manager (npm, yarn, pnpm, etc.) to make sure nothing has broken.
+The basic set of tests are in the test script and the coverage script. Just run those using your perferred package manager (npm, yarn, pnpm, etc.) if you want to make sure nothing has broken.
 
 ## 🎈 Usage
 
@@ -85,19 +84,81 @@ That means that wherever and however you use this package — in browser or node
 
 <!-- TODO -->
 
-## Example
+There are two exports from this package: alea and aleaFactory. If you just want to use a higher quality drop in replacement for Math.random, alea is the pick. For the notably expanded functionality, use aleaFactory.
 
-<!-- TODO -->
+```typescript
+import { alea as random } from 'alea-generator';
 
-```code
-put content here
+console.log(random()); // 0.6198398587293923
+console.log(random()); // 0.0231225231354864
+console.log(random()); // 0.9802844453866831
+
+// all outputs will be greater than or equal to 0 and less than 1
+```
+
+```typescript
+import { aleaFactory } from 'alea-generator';
+
+/********************************************/
+/*               Seeding                    */
+/********************************************/
+
+// the aleaFactory is optionally seedable
+const randomGeneratorNoSeed = aleaFactory();
+
+// the seed can be a number
+const randomGeneratorWithNumberSeed = aleaFactory(123);
+
+// or the seed can be a string
+const randomGeneratorWithTextSeed = aleaFactory('special seed');
+
+// or any object with a toString method
+const objectSeed = {
+	num: 45,
+	num2: 47,
+	toString: () => `${objectSeed.num} + ${objectSeed.num2}`,
+};
+const randomGeneratorWithObjectSeed = aleaFactory(objectSeed);
+// be careful with this, if you haven't implemented a toString method
+// as it will inherit one from the prototype chain and default to [object Object]
+
+/********************************************/
+/*               Methods                    */
+/********************************************/
+const randomGenerator = aleaFactory('1277182878230');
+
+// random is the drop in replacement for Math.random
+// it will generate numbers greater than or equal to 0 and less than 1
+console.log(randomGenerator.random()); // 0.6198398587293923
+console.log(randomGenerator.random()); // 0.8385338634252548
+
+// uint32 will generate integers greater than or equal to 0 and less than 2^32
+console.log(randomGenerator.uint32()); // 715789690
+console.log(randomGenerator.uint32()); // 4250
+
+// Fract53 will generate a 53 bit number between 0 and 1 (like random but higher precision)
+console.log(randomGenerator.fract53()); // 0.16665777435687268;
+console.log(randomGenerator.fract53()); // 0.00011322738143160205;
+
+// exportState and importState allow for exact state duplication
+const stateBeforeRunning = randomGenerator.exportState();
+console.log(randomGenerator.random()); // 0.7692187615214618
+console.log(randomGenerator.random()); // 0.2316584344522553
+
+randomGenerator.importState(stateBeforeRunning);
+console.log(randomGenerator.random()); // 0.7692187615214618
+console.log(randomGenerator.random()); // 0.2316584344522553
+
+const otherGenerator = aleaFactory().importState(stateBeforeRunning);
+console.log(otherGenerator.random()); // 0.7692187615214618
+console.log(otherGenerator.random()); // 0.2316584344522553
 ```
 
 <!-- LICENSE -->
 
-## 📃 License
+## 📃 License and Shoutouts
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See `LICENSE` for more information. This is a typescript port of an [alea generator for javascript](https://github.com/coverslide/node-alea/) which was itself a packaged version of the implementation by Johannes Baagøe which you can read more about [here](https://web.archive.org/web/20120619002808/http://baagoe.org/en/wiki/Better_random_numbers_for_javascript)
 
 ## ✍️ Authors
 
@@ -107,8 +168,6 @@ Find me [@illumincrotty](https://github.com/illumincrotty) on github or [@illumi
 
 If this tool isn't working for you, try one of these:
 
-<!-- TODO -->
-
--   [0]("_blank")
--   [1]("_blank")
--   [2]("_blank")
+-   [ISAAC, A cryptographically secure random number generator]("https://github.com/macmcmeans/isaacCSPRNG")
+-   [The new standard crypto web api for cryptographically secure random numbers](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues)
+-   [Prando](https://www.npmjs.com/package/prando)
